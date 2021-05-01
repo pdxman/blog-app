@@ -1,3 +1,4 @@
+import { getQueriesForElement } from '@testing-library/dom'
 import React, {useState, useEffect} from 'react'
 import BlogList from './BlogList'
 
@@ -5,6 +6,7 @@ const Home = () => {
     const [blogs, setBlogs] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [num ,setNum] = useState(0);
 
     const handleDelete = (id) => {
         const newBlogs = blogs.filter(blog => blog.id !== id)
@@ -33,6 +35,16 @@ const Home = () => {
         }, 1000)
     }, [])
 
+    let inputStyle = {
+        background: 'green'
+    }
+
+    const handleSlider = (e) => {
+        setNum(e.target.value)
+    }
+
+    const isBackgroundGreen = false; 
+
 return(
     <div className="home">
         { error && <div>{ error }</div> }
@@ -44,6 +56,12 @@ return(
         {/* <button onClick={() => setName('Tim')}>change name</button>
         {name}  */}
         {/* <BlogList blogs={blogs.filter((blog) => blog.author === "Billy")} title="Billy Blogs!"/> */}
+
+        <input className="range slider" type="range" min="0" max="100" onChange={handleSlider}/>
+
+        <p>{num}</p>
+
+        <div className={isBackgroundGreen ? 'box-green' : 'box-red'} >box</div>
     </div>
     )
 }
